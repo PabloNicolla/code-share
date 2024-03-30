@@ -21,7 +21,7 @@ const formSchema = z.object({
   name: z.string().min(1).max(50),
   description: z.string().min(1).max(200),
   githubRepo: z.string().url(), // different validation
-  language: z.string().min(1).max(50),
+  tags: z.string().min(1).max(50),
 });
 
 export function CreateRoomForm() {
@@ -33,7 +33,7 @@ export function CreateRoomForm() {
       name: "",
       description: "",
       githubRepo: "",
-      language: "",
+      tags: "",
     },
   });
 
@@ -53,7 +53,7 @@ export function CreateRoomForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder="Code Share" />
               </FormControl>
               <FormDescription>This is your public room name.</FormDescription>
               <FormMessage />
@@ -68,7 +68,10 @@ export function CreateRoomForm() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="I'm working on a side project, come join me"
+                />
               </FormControl>
               <FormDescription>
                 Provide a brief description of the room.
@@ -85,7 +88,10 @@ export function CreateRoomForm() {
             <FormItem>
               <FormLabel>Github Repository</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="https://github.com/username/repo"
+                />
               </FormControl>
               <FormDescription>
                 Please provide a link to the Github repository.
@@ -97,16 +103,16 @@ export function CreateRoomForm() {
 
         <FormField
           control={form.control}
-          name="language"
+          name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Primary Programming Language</FormLabel>
+              <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder="typescript, next.js, tailwind" />
               </FormControl>
               <FormDescription>
-                Please provide the primary programming language used in this
-                room.
+                List the programming languages, frameworks, and libraries used
+                in the project.
               </FormDescription>
               <FormMessage />
             </FormItem>
