@@ -7,8 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogInIcon, LogOutIcon } from "lucide-react";
@@ -18,8 +16,6 @@ import Link from "next/link";
 
 function AccountDropdown() {
   const session = useSession();
-
-  const isLoggedIn = !!session.data;
 
   return (
     <DropdownMenu>
@@ -34,23 +30,24 @@ function AccountDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuSeparator />
-        {isLoggedIn ? (
-          <DropdownMenuItem onClick={() => signOut()}>
-            <LogOutIcon className="mr-2" />
-            Sign Out
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem onClick={() => signIn("google")}>
-            <LogInIcon className="mr-2" /> Sign In
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem
+          onClick={() =>
+            signOut({
+              callbackUrl: "/",
+            })
+          }
+        >
+          <LogOutIcon className="mr-2" />
+          Sign Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
 export function Header() {
+  const session = useSession();
+
   return (
     <header className="container mx-auto bg-gray-100 dark:bg-gray-900">
       <div className="flex items-center justify-between p-2">
@@ -68,7 +65,12 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-4">
-          <AccountDropdown />
+          {session.data && <AccountDropdown />}
+          {!session.data && (
+            <Button onClick={() => signIn()} variant="link">
+              <LogInIcon className="mr-2" /> Sign In
+            </Button>
+          )}
           <ModeToggle />
         </div>
       </div>
