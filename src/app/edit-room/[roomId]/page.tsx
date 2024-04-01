@@ -16,7 +16,7 @@ export default async function EditRoomPage({
 
   return (
     <div>
-      <div className="container mx-auto flex flex-col gap-8 pb-24 pt-12">
+      <div className="mx-auto flex flex-col gap-8 pb-24 pt-12">
         <h1 className="text-4xl font-bold">Edit Room</h1>
 
         <EditRoomForm room={room} />

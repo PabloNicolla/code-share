@@ -13,12 +13,12 @@ export default async function RoomPage(props: { params: { roomId: string } }) {
   const room = await getRoom(roomId);
 
   if (!room) {
-    return <div className="container">Room not found</div>;
+    return <div>Room not found</div>;
   }
 
   return (
     <div>
-      <div className="container grid min-h-screen grid-cols-4">
+      <div className="grid min-h-screen grid-cols-4">
         <div className="col-span-3 p-4 pr-2">
           <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
             <CodeShareVideo room={room} />
