@@ -20,7 +20,7 @@ function AccountDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={"link"}>
+        <Button variant={"link"} className="hover:text-blue-400">
           <Avatar className="mr-2">
             <AvatarImage src={session.data?.user?.image ?? ""} />
             <AvatarFallback>CN</AvatarFallback>
@@ -47,9 +47,10 @@ function AccountDropdown() {
 
 export function Header() {
   const session = useSession();
+  const isLoggedIn = !!session.data;
 
   return (
-    <header className="container mx-auto bg-gray-100 dark:bg-gray-900">
+    <header className="container relative z-10 mx-auto bg-gray-100 dark:bg-gray-900">
       <div className="flex items-center justify-between p-2">
         <Link
           href="/"
@@ -64,9 +65,29 @@ export function Header() {
           Code Share
         </Link>
 
+        <nav className="flex gap-4">
+          {isLoggedIn && (
+            <>
+              <Link
+                className="hover:text-blue-400 hover:underline"
+                href={"/browse"}
+              >
+                Browse
+              </Link>
+
+              <Link
+                className="hover:text-blue-400 hover:underline"
+                href={"/your-rooms"}
+              >
+                Your Rooms
+              </Link>
+            </>
+          )}
+        </nav>
+
         <div className="flex items-center gap-4">
-          {session.data && <AccountDropdown />}
-          {!session.data && (
+          {isLoggedIn && <AccountDropdown />}
+          {!isLoggedIn && (
             <Button onClick={() => signIn()} variant="link">
               <LogInIcon className="mr-2" /> Sign In
             </Button>
